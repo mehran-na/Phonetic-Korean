@@ -1,11 +1,14 @@
 package Coreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TexteCoreen {
     String texte;
     ArrayList<Integer> codePoints = new ArrayList<>();
     ArrayList<Hangeul> hangeuls = new ArrayList<>();
+
+    ArrayList<ConsonneInitiale> cis = new ArrayList<>();
 
     public TexteCoreen(String texte) {
         this.texte = texte;
@@ -59,6 +62,6 @@ public class TexteCoreen {
     public String traduire() {
         transferAuCodesPoints();
         calculerHangeul();
-        //return texte;
+        return "";
     }
 }

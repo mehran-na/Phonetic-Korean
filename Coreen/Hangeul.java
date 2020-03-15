@@ -22,4 +22,14 @@ public class Hangeul {
     public int getDi() {
         return di;
     }
+
+    @Override
+    public String toString() {
+        return  getClass().getName()+
+                "{" +
+                "ci=" + ci +
+                ", vi=" + vi +
+                ", di=" + di +
+                '}';
+    }
 }

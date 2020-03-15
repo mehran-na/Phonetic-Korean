@@ -1,67 +1,63 @@
 package Coreen;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class TexteCoreen {
     String texte;
-    ArrayList<Integer> codePoints = new ArrayList<>();
+
     ArrayList<Hangeul> hangeuls = new ArrayList<>();
 
     ArrayList<ConsonneInitiale> cis = new ArrayList<>();
 
+    //Constructor
     public TexteCoreen(String texte) {
         this.texte = texte;
     }
 
     public int noConsonneInitiale(int position) {
-        return 5;
+        //char monChar = texte.charAt(position); //쏙
+        int codePoint = texte.codePointAt(position);
+        int uiTemp = codePoint - 44032;
+        return 1 + (uiTemp / 588);
     }
 
     public int noVoyelle(int position) {
-        return 0;
+        int codePoint = texte.codePointAt(position);
+        int uiTemp = codePoint - 44032;
+        return 1 + ((uiTemp - (uiTemp % 28)) % 588) / 28;
     }
 
     public int noConsonneFinale(int position) {
-        return 0;
+        int codePoint = texte.codePointAt(position);
+        int uiTemp = codePoint - 44032;
+        return uiTemp % 28;
     }
 
-    /**
-     * Calculer code point Correspondant de chaque caractère.
-     *
-     * @return void
-     */
-    private void transferAuCodesPoints() {
-        int codePoint;
-        for(int i = 0; i < texte.length(); i++) {
-            codePoint = texte.codePointAt(i);
-            codePoints.add(codePoint);
-        }
-    }
 
     /**
      * Calculer ci, vi, di et créer object Hangeul de chaque code point.
      *
      * @return void
      */
-    private void calculerHangeul() {
-        int uiTemp;
+    private void createHangeul() {
         int ci;
         int vi;
         int di;
-        for(int codePoint : codePoints) {
-            uiTemp = codePoint - 44032;
-            di = uiTemp % 28;
-            vi = 1 + ((uiTemp - di) % 588) / 28;
-            ci = 1 + (uiTemp / 588);
+        for (int i = 0; i < texte.length(); i++){
+            ci =noConsonneInitiale(i);
+            vi = noVoyelle(i);
+            di =noConsonneFinale(i);
             Hangeul h = new Hangeul(ci, vi, di);
             hangeuls.add(h);
         }
     }
 
     public String traduire() {
-        transferAuCodesPoints();
-        calculerHangeul();
-        return "";
+        // 쏙누붤댅딡
+        String textTraduire = "";
+        createHangeul();
+        textTraduire = hangeuls.get(0).toString();
+
+        return textTraduire;
     }
 }

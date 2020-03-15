@@ -6,8 +6,7 @@ public class TexteCoreen {
     String texte;
 
     ArrayList<Hangeul> hangeuls = new ArrayList<>();
-
-    ArrayList<ConsonneInitiale> cis = new ArrayList<>();
+    ArrayList<IPA> ipaObjects = new ArrayList<>();
 
     //Constructor
     public TexteCoreen(String texte) {
@@ -43,12 +42,36 @@ public class TexteCoreen {
         int ci;
         int vi;
         int di;
-        for (int i = 0; i < texte.length(); i++){
-            ci =noConsonneInitiale(i);
+        for(int i = 0; i < texte.length(); i++) {
+            ci = noConsonneInitiale(i);
             vi = noVoyelle(i);
-            di =noConsonneFinale(i);
+            di = noConsonneFinale(i);
             Hangeul h = new Hangeul(ci, vi, di);
             hangeuls.add(h);
+        }
+    }
+
+    /**
+     * Créer object IPA et ajouter dans arrayList ipaObjects.
+     *
+     * @return void
+     */
+    private void createIPA() {
+        String ipaInitiale;
+        String ipaVoyelle;
+        String ipaFinale;
+        for(Hangeul item : hangeuls) {
+            ConsonneInitiale ci = Enum.valueOf(ConsonneInitiale.class, "c" + item.getCi());
+            ipaInitiale = ci.getUniCode();
+
+            Voyelle vi = Enum.valueOf(Voyelle.class, "v" + item.getVi());
+            ipaVoyelle = vi.getUniCode();
+
+            ConsonneFinale di = Enum.valueOf(ConsonneFinale.class, "d" + item.getDi());
+            ipaFinale = di.getUniCode();
+
+            IPA u = new IPA(ipaInitiale, ipaVoyelle, ipaFinale);
+            ipaObjects.add(u);
         }
     }
 
@@ -56,8 +79,10 @@ public class TexteCoreen {
         // 쏙누붤댅딡
         String textTraduire = "";
         createHangeul();
-        textTraduire = hangeuls.get(0).toString();
 
+        createIPA();
+
+        textTraduire = ipaObjects.get(1).toString();
         return textTraduire;
     }
 }

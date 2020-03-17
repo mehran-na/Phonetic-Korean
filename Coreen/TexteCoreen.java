@@ -5,8 +5,9 @@ import java.util.*;
 public class TexteCoreen {
     String texte;
 
-    ArrayList<Hangeul> hangeuls = new ArrayList<>();
-    ArrayList<Jamo> jamoObjects = new ArrayList<>();
+    ArrayList<HangeulChiffre> hangeulChiffres = new ArrayList<>();
+    ArrayList<Hangeul> hangeulObjects = new ArrayList<>();
+    //ArrayList<HangeulModifie> hangeulModifies = new ArrayList<>();
 
     //Constructor
     public TexteCoreen(String texte) {
@@ -38,7 +39,7 @@ public class TexteCoreen {
      *
      * @return void
      */
-    private void createHangeul() {
+    private void createHangeulChiffre() {
         int ci;
         int vi;
         int di;
@@ -46,8 +47,8 @@ public class TexteCoreen {
             ci = noConsonneInitiale(i);
             vi = noVoyelle(i);
             di = noConsonneFinale(i);
-            Hangeul h = new Hangeul(ci, vi, di);
-            hangeuls.add(h);
+            HangeulChiffre h = new HangeulChiffre(ci, vi, di);
+            hangeulChiffres.add(h);
         }
     }
 
@@ -56,32 +57,89 @@ public class TexteCoreen {
      *
      * @return void
      */
-    private void createJamoObject() {
+    private void creerHangeulObject() {
         String jamoInitiale;
         String jamoVoyelle;
         String jamoFinale;
 
-        for(Hangeul item : hangeuls) {
-            ConsonneInitiale ci = Enum.valueOf(ConsonneInitiale.class, "c" + item.getCi());
-            jamoInitiale = ci.getJamosUnicode();
+        for(HangeulChiffre item : hangeulChiffres) {
+            ConsonneInitiale ci = Enum.valueOf(ConsonneInitiale.class, "C_" + item.getCi());
+            jamoInitiale = ci.getIpaUniCode();
 
-            Voyelle vi = Enum.valueOf(Voyelle.class, "v" + item.getVi());
-            jamoVoyelle = vi.getJamosUnicode();
+            Voyelle vi = Enum.valueOf(Voyelle.class, "V_" + item.getVi());
+            jamoVoyelle = vi.getIpaUniCode();
 
-            ConsonneFinale di = Enum.valueOf(ConsonneFinale.class, "d" + item.getDi());
-            jamoFinale = di.getJamosUnicode();
+            ConsonneFinale di = Enum.valueOf(ConsonneFinale.class, "D_" + item.getDi());
+            jamoFinale = di.getIpaUniCode();
 
-            Jamo u = new Jamo(jamoInitiale, jamoVoyelle, jamoFinale);
-            jamoObjects.add(u);
+            Hangeul u = new Hangeul(jamoInitiale, jamoVoyelle, jamoFinale);
+            hangeulObjects.add(u);
         }
+    }
+
+    /*
+    private void creerHangeulModifie(){
+        String ci = "";
+        String di = "";
+        for (int i = 1; i < jamoObjects.size(); i++){
+            di = jamoObjects.get(i-1).jamoFinale;
+            ci = jamoObjects.get(i).jamoInitiale;
+            HangeulModifie hm = new HangeulModifie(ci, di);
+            hangeulModifies.add(hm);
+        }
+    }
+    */
+
+    /*
+    private void modifierHangeuls(){
+        for(HangeulModifie item : hangeulModifies){
+            item.trouverIPA();
+            //call method for find unicode correct
+            //method for split unicodeCorrect
+        }
+    }
+    */
+
+    private void modifierHangeuls() {
+        String di = "";
+        String ci = "";
+        for(int i = 0; i < hangeulObjects.size() - 1; i++) {
+            di = hangeulObjects.get(i).getDi();
+            ci = hangeulObjects.get(i + 1).getCi();
+
+            hangeulObjects.get(i).trouverIPA(di, ci);
+            hangeulObjects.get(i).trouverUnicodeCorrect();
+            hangeulObjects.get(i).assigneUnicodeCorrectDI();
+            hangeulObjects.get(i+1).assigneUnicodeCorrectDI();
+        }
+    }
+
+    private String Resultat(){
+        String str = "";
+        for(Hangeul item : hangeulObjects){
+            str += item;
+        }
+        return str;
     }
 
     public String traduire() {
         // 쏙누붤댅딡
         String textTraduire = "";
-        createHangeul();
-        createJamoObject();
-        textTraduire = jamoObjects.get(0).toString();
+        createHangeulChiffre();
+        creerHangeulObject();
+        //modifierHangeuls();
+        //textTraduire = Resultat();
+
+        textTraduire = Arrays.toString(Hangeul.tableModification);
+        for (int i = 0; i < 1; i++){
+            for (int j = 0; j < Hangeul.tableModification[i].length; j++){
+                textTraduire += Hangeul.tableModification[i][j] + "\n";
+            }
+
+        }
+
         return textTraduire;
     }
+
+
 }

@@ -6,7 +6,7 @@ public class TexteCoreen {
     String texte;
 
     ArrayList<Hangeul> hangeuls = new ArrayList<>();
-    ArrayList<IPA> ipaObjects = new ArrayList<>();
+    ArrayList<Jamo> jamoObjects = new ArrayList<>();
 
     //Constructor
     public TexteCoreen(String texte) {
@@ -56,22 +56,23 @@ public class TexteCoreen {
      *
      * @return void
      */
-    private void createIPA() {
-        String ipaInitiale;
-        String ipaVoyelle;
-        String ipaFinale;
+    private void createJamoObject() {
+        String jamoInitiale;
+        String jamoVoyelle;
+        String jamoFinale;
+
         for(Hangeul item : hangeuls) {
             ConsonneInitiale ci = Enum.valueOf(ConsonneInitiale.class, "c" + item.getCi());
-            ipaInitiale = ci.getUniCode();
+            jamoInitiale = ci.getJamosUnicode();
 
             Voyelle vi = Enum.valueOf(Voyelle.class, "v" + item.getVi());
-            ipaVoyelle = vi.getUniCode();
+            jamoVoyelle = vi.getJamosUnicode();
 
             ConsonneFinale di = Enum.valueOf(ConsonneFinale.class, "d" + item.getDi());
-            ipaFinale = di.getUniCode();
+            jamoFinale = di.getJamosUnicode();
 
-            IPA u = new IPA(ipaInitiale, ipaVoyelle, ipaFinale);
-            ipaObjects.add(u);
+            Jamo u = new Jamo(jamoInitiale, jamoVoyelle, jamoFinale);
+            jamoObjects.add(u);
         }
     }
 
@@ -79,10 +80,8 @@ public class TexteCoreen {
         // 쏙누붤댅딡
         String textTraduire = "";
         createHangeul();
-
-        createIPA();
-
-        textTraduire = ipaObjects.get(1).toString();
+        createJamoObject();
+        textTraduire = jamoObjects.get(0).toString();
         return textTraduire;
     }
 }

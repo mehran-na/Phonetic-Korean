@@ -101,23 +101,31 @@ public class TexteCoreen {
     */
 
     private void modifierHangeuls() {
-        String di = "";
-        String ci = "";
-        for(int i = 0; i < hangeulObjects.size() - 1; i++) {
-            di = hangeulObjects.get(i).getDi();
-            ci = hangeulObjects.get(i + 1).getCi();
+        int di = 0;
+        int ci = 0;
+        for(int i = 0; i < hangeulObjects.size() - 1 ; i++) {
+            Hangeul.setObjectNumber();
 
-            hangeulObjects.get(i).trouverIPA(di, ci);
-            hangeulObjects.get(i).trouverUnicodeCorrect();
-            hangeulObjects.get(i).assigneUnicodeCorrectDI();
-            hangeulObjects.get(i+1).assigneUnicodeCorrectDI();
+            di = hangeulChiffres.get(i).getDi();
+            ci = hangeulChiffres.get(i+1).getCi();
+
+            if(di != 0){
+                hangeulObjects.get(i).trouverIPA(di, ci);
+
+                hangeulObjects.get(i).trouverUnicodeCorrect();
+
+                hangeulObjects.get(i).assigneUnicodeCorrect();
+            }else {
+                hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+            }
+
         }
     }
 
-    private String Resultat(){
+    private String Resultat() {
         String str = "";
-        for(Hangeul item : hangeulObjects){
-            str += item;
+        for(Hangeul item : hangeulObjects) {
+            str += item.getCi()+item.getVi()+item.getDi();
         }
         return str;
     }
@@ -127,16 +135,19 @@ public class TexteCoreen {
         String textTraduire = "";
         createHangeulChiffre();
         creerHangeulObject();
-        //modifierHangeuls();
-        //textTraduire = Resultat();
 
-        textTraduire = Arrays.toString(Hangeul.tableModification);
-        for (int i = 0; i < 1; i++){
-            for (int j = 0; j < Hangeul.tableModification[i].length; j++){
-                textTraduire += Hangeul.tableModification[i][j] + "\n";
+        modifierHangeuls();
+        textTraduire = Resultat();
+
+        /*textTraduire = Arrays.toString(Hangeul.tableModification);
+        for(int i = 9; i < 10; i++) {
+            for(int j = 0; j < Hangeul.tableModification[i].length; j++) {
+                    textTraduire += "\n" + Hangeul.tableModification[i][j];
             }
 
-        }
+        }*/
+
+        //textTraduire = Hangeul.tableModification[1][25];
 
         return textTraduire;
     }

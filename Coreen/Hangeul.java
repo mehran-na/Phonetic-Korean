@@ -1,11 +1,14 @@
 package Coreen;
 
 public class Hangeul {
-    String ci;
-    String vi;
-    String di;
+    private String ci;
+    private String vi;
+    private String di;
 
-    private String unicodeCorrect;
+    private String unicodeCorrect = "";
+
+    private static String ciProchainObject = "";
+    private static int objectNumber = -1;
 
 
     private int[] placeIPA = new int[2];
@@ -40,11 +43,63 @@ public class Hangeul {
     public static String[][] tableModification =
             {
                     {
-                            "\u006B", "\u006B\u0324\u002B\u0068", "\u006E", "\u0074\u031A", "", "\u027E", "\u006D", "\u0070\u031A", "", "\u0073", "\u0073\u0324", "\u014B\u002B\u0068", "\u0074\u031A\u002B\u0074\u0255\u02B0", "", "\u0074\u031A\u002B\u0074\u0255\u02B0", "\u006B\u031A\u002B\u0068", "\u0074\u031A\u002B\u0074\u0255\u02B0", "\u0070\u031A\u002B\u0068", "\u0068","\u006B\u002B\u0073","\u006E\u002B\u0074\u0255","\u006C\u002B\u0068","\u006C\u002B\u006B","\u006C\u002B\u006D","\u006C\u002B\u0070","\u006C\u002B\u0073","\u006C\u002B\u0074\u02B0","\u006C\u002B\u0070\u02B0","\u006C\u002B\u0068","\u0070\u031A\u002B\u0073"
+                            "\u006B", "\u006B\u0324\u002B\u0068", "\u006E", "\u0074\u031A", "", "\u027E", "\u006D", "\u0070\u031A", "", "\u0073", "\u0073\u0324", "\u014B\u002B\u0068", "\u0074\u031A\u002B\u0074\u0255\u02B0", "", "\u0074\u031A\u002B\u0074\u0255\u02B0", "\u006B\u031A\u002B\u0068", "\u0074\u031A\u002B\u0074\u0255\u02B0", "\u0070\u031A\u002B\u0068", "\u0068", "\u006B\u002B\u0073", "\u006E\u002B\u0074\u0255", "\u006C\u002B\u0068", "\u006C\u002B\u006B", "\u006C\u002B\u006D", "\u006C\u002B\u0070", "\u006C\u002B\u0073", "\u006C\u002B\u0074\u02B0", "\u006C\u002B\u0070\u02B0", "\u006C\u002B\u0068", "\u0070\u031A\u002B\u0073"
                     },
 
-                    {},
-                    {},
+                    {
+                            "\u006B\u031A", "\u006B\u0324\u002B\u0068", "\u006E\u002B\u0068", "\u0074\u031A", "", "\u027E", "\u006D\u002B\u0068", "\u0070\u031A", "",
+                            "\u0074\u031A", "", "\u014B\u002B\u0068", "\u0074\u031A\u002B\u0074\u0255\u02B0", "", "\u0074\u031A\u002B\u0074\u0255\u02B0", "\u006B\u031A", "\u0074\u031A", "\u0070\u031A", "",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "\u006B\u031A\u002B\u006B\u031A", "", "\u006E\u002B\u006B", "\u0074\u031A\u002B\u006B", "", "\u006C\u002B\u006B", "\u006D\u002B\u006B", "\u0070\u002B\u006B", "",
+                            "\u0074\u031A\u002B\u006B", "", "\u014B\u002B\u006B", "\u0074\u031A\u002B\u006B", "", "\u0074\u031A\u002B\u006B", "", "\u0074\u031A\u002B\u006B", "\u0070\u031A\u002B\u006B", "\u0068\u002B\u006B\u031A",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "\u014B", "", "\u006E\u002B\u006E", "", "", "\u006c\u002B\u006c", "\u006D\u002B\u006E", "\u006D\u002B\u006E", "",
+                            "\u0074\u031A\u002B\u006E", "\u006E\u002B\u0074\u031A", "\u014B\u002B\u006E", "\u0074\u031A\u002B\u006E", "", "\u0074\u031A\u002B\u006E", "", "\u0074\u031A\u002B\u006E", "\u0070\u031A\u002B\u006E", "\u0068\u002B\u006E",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "\u006B\u031A\u002B\u0074", "", "\u006E\u002B\u0074", "\u0074\u031A\u002B\u0074\u031A", "", "\u006C\u002B\u0074", "\u006D\u002B\u0074", "\u0070\u031A\u002B\u0074", "",
+                            "\u0074\u031A\u002B\u0074\u031A", "\u0074\u031A\u002B\u0074\u031A", "\u014B\u002B\u0074", "\u0074\u031A\u002B\u0074\u031A", "", "\u0074\u031A\u002B\u0074\u031A", "\u006B\u031A\u002B\u0074", "\u0074\u031A\u002B\u0074\u031A", "\u0070\u031A\u002B\u0074", "\u0068\u002B\u0074\u031A",
+                            "\u006B\u002B\u0074\u031A", "\u006E\u0074\u0255\u002B\u0074", "\u006E\u002B\u0074\u031A", "\u006B\u002B\u0074", "\u006D\u002B\u0074", "\u0070\u002B\u0074", "\u006C\u002B\u0074\u031A", "\u006C\u002B\u0074\u02B0", "\u0070\u02B0\u002B\u0074", "\u006C\u002B\u0074\u031A", "\u0070\u031A\u002B\u0074\u031A"
+                    },
+
+                    {
+                            "\u006B\u002B\u006E", "", "\u006C\u002B\u006C", "", "", "\u006C\u002B\u006C", "\u006D\u002B\u006E", "\u006D\u002B\u006E", "",
+                            "", "", "\u006E", "", "", "", "", "", "", "\u027E",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "\u006B\u002B\u006D", "", "\u006E\u002B\u006D", "\u0074\u031A\u002B\u006D", "", "\u006C\u002B\u006D", "\u006D\u002B\u006D", "\u006D\u002B\u006D", "",
+                            "\u0074\u031A\u002B\u006D", "", "\u014B\u002B\u006D", "\u0074\u031A\u002B\u006D", "", "\u0074\u031A\u002B\u006D", "\u006B\u031A\u002B\u0074", "\u0074\u031A\u002B\u006D", "\u0070\u031A\u002B\u006D", "\u0068\u002B\u006D",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "\u006B\u002B\u0070", "", "", "", "", "", "", "\u0070\u031A\u002B\u0070\u031A", "",
+                            "\u0074\u031A\u002B\u0070", "", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "", "", "", "", "", "", "", "", "",
+                            "", "\u0073\u0324\u002B\u0073", "", "", "\u0074\u031A\u002B\u0074\u0255\u02B0", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
+                    {
+                            "", "", "", "", "", "", "", "", "",
+                            "", "\u0074\u031A\u002B\u0074\u0255\u02B0", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", ""
+                    },
+
 
             };
 
@@ -67,15 +122,18 @@ public class Hangeul {
         return di;
     }
 
-    public void trouverIPA(String di, String ci) {
+    public void trouverIPA(int di, int ci) {
+        String jamos_ci = ConsonneInitiale.trouverJamos(ci);
+        String jamos_di = ConsonneFinale.trouverJamos(di);
+
         for(int i = 0; i < jamosFinaleUnicode.length; i++) {
-            if (jamosFinale[i].equals(di)) {
+            if (jamosFinale[i].equals(jamos_di)) {
                 placeIPA[1] = i;
             }
         }
 
         for(int i = 0; i < jamosInitialeUnicode.length; i++) {
-            if (jamosInitiale[i].equals(ci)) {
+            if (jamosInitiale[i].equals(jamos_ci)) {
                 placeIPA[0] = i;
             }
         }
@@ -85,20 +143,40 @@ public class Hangeul {
         this.unicodeCorrect = tableModification[placeIPA[0]][placeIPA[1]];
     }
 
-    public void assigneUnicodeCorrectDI() {
+    public void assigneUnicodeCorrect() {
+        if(objectNumber != 0){
+            ci = ciProchainObject;
+            ciProchainObject = "";
+        }
+
         if (unicodeCorrect.length() != 0 && unicodeCorrect.contains("\u002b")) {
             String[] arr = unicodeCorrect.split("\\u002b");
             this.di = arr[0];
+            ciProchainObject = arr[1];
         }else if (unicodeCorrect.length() != 0 && !unicodeCorrect.contains("\u002b")) {
             this.di = unicodeCorrect;
+            ciProchainObject = "";
         }
     }
 
-    public void assigneUnicodeCorrectCI() {
-        if (unicodeCorrect.length() != 0 && unicodeCorrect.contains("\u002b")) {
-            String[] arr = unicodeCorrect.split("\\u002b");
-            this.ci = arr[1];
-        }
+    public static void setObjectNumber() {
+        Hangeul.objectNumber++;
+    }
+
+    public void setCi(String ci) {
+        this.ci = ci;
+    }
+
+    public void setVi(String vi) {
+        this.vi = vi;
+    }
+
+    public void setDi(String di) {
+        this.di = di;
+    }
+
+    public static String getCiProchainObject() {
+        return ciProchainObject;
     }
 
     @Override

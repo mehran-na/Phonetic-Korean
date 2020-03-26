@@ -11,7 +11,7 @@ public class Hangeul {
     private static int objectNumber = -1;
 
 
-    private int[] placeIPA = new int[2];
+    private static int[] placeIPA = new int[2];
 
 
     private static String[] jamosFinale =
@@ -122,7 +122,25 @@ public class Hangeul {
         return di;
     }
 
-    public void trouverIPA(int di, int ci) {
+    //asli
+    /*public void trouverIPA(int di, int ci) {
+        String jamos_ci = ConsonneInitiale.trouverJamos(ci);
+        String jamos_di = ConsonneFinale.trouverJamos(di);
+
+        for(int i = 0; i < jamosFinaleUnicode.length; i++) {
+            if (jamosFinale[i].equals(jamos_di)) {
+                placeIPA[1] = i;
+            }
+        }
+
+        for(int i = 0; i < jamosInitialeUnicode.length; i++) {
+            if (jamosInitiale[i].equals(jamos_ci)) {
+                placeIPA[0] = i;
+            }
+        }
+    }*/
+
+    public static void trouverIPA(int di, int ci) {
         String jamos_ci = ConsonneInitiale.trouverJamos(ci);
         String jamos_di = ConsonneFinale.trouverJamos(di);
 
@@ -144,18 +162,15 @@ public class Hangeul {
     }
 
     public void assigneUnicodeCorrect() {
-        if(objectNumber != 0){
-            ci = ciProchainObject;
-            ciProchainObject = "";
-        }
-
-        if (unicodeCorrect.length() != 0 && unicodeCorrect.contains("\u002b")) {
-            String[] arr = unicodeCorrect.split("\\u002b");
-            this.di = arr[0];
-            ciProchainObject = arr[1];
-        }else if (unicodeCorrect.length() != 0 && !unicodeCorrect.contains("\u002b")) {
-            this.di = unicodeCorrect;
-            ciProchainObject = "";
+        if (unicodeCorrect.length() != 0) {
+            if (unicodeCorrect.contains("\u002b")) {
+                String[] arr = unicodeCorrect.split("\\u002b");
+                this.di = arr[0];
+                ciProchainObject = arr[1];
+            }else{
+                this.di = unicodeCorrect;
+                ciProchainObject = "";
+            }
         }
     }
 
@@ -177,6 +192,10 @@ public class Hangeul {
 
     public static String getCiProchainObject() {
         return ciProchainObject;
+    }
+
+    public static void setCiProchainObject(String ciProchainObject) {
+        Hangeul.ciProchainObject = ciProchainObject;
     }
 
     @Override

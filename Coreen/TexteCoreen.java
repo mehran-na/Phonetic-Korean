@@ -7,12 +7,12 @@ public class TexteCoreen {
 
     ArrayList<HangeulChiffre> hangeulChiffres = new ArrayList<>();
     ArrayList<Hangeul> hangeulObjects = new ArrayList<>();
-    //ArrayList<HangeulModifie> hangeulModifies = new ArrayList<>();
 
     //Constructor
     public TexteCoreen(String texte) {
         this.texte = texte;
     }
+
 
     public int noConsonneInitiale(int position) {
         //char monChar = texte.charAt(position); //쏙
@@ -77,55 +77,41 @@ public class TexteCoreen {
         }
     }
 
-    /*
-    private void creerHangeulModifie(){
-        String ci = "";
-        String di = "";
-        for (int i = 1; i < jamoObjects.size(); i++){
-            di = jamoObjects.get(i-1).jamoFinale;
-            ci = jamoObjects.get(i).jamoInitiale;
-            HangeulModifie hm = new HangeulModifie(ci, di);
-            hangeulModifies.add(hm);
-        }
-    }
-    */
-
-    /*
-    private void modifierHangeuls(){
-        for(HangeulModifie item : hangeulModifies){
-            item.trouverIPA();
-            //call method for find unicode correct
-            //method for split unicodeCorrect
-        }
-    }
-    */
-
     private void modifierHangeuls() {
         int di = 0;
         int ci = 0;
-        for(int i = 0; i < hangeulObjects.size() - 1 ; i++) {
+        for(int i = 0; i < hangeulObjects.size() - 1; i++) {
             Hangeul.setObjectNumber();
 
             di = hangeulChiffres.get(i).getDi();
-            ci = hangeulChiffres.get(i+1).getCi();
+            ci = hangeulChiffres.get(i + 1).getCi();
 
-            if(di != 0){
-                hangeulObjects.get(i).trouverIPA(di, ci);
-
-                hangeulObjects.get(i).trouverUnicodeCorrect();
-
-                hangeulObjects.get(i).assigneUnicodeCorrect();
-            }else {
-                hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+            if (i == 0) {
+                if (di != 0) {
+                    Hangeul.trouverIPA(di, ci);
+                    hangeulObjects.get(i).trouverUnicodeCorrect();
+                    hangeulObjects.get(i).assigneUnicodeCorrect();
+                }else{
+                    Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+                }
+            }else{
+                if (di != 0) {
+                    hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                    Hangeul.trouverIPA(di, ci);
+                    hangeulObjects.get(i).trouverUnicodeCorrect();
+                    hangeulObjects.get(i).assigneUnicodeCorrect();
+                }else{
+                    hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                    Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+                }
             }
-
         }
     }
 
     private String Resultat() {
         String str = "";
         for(Hangeul item : hangeulObjects) {
-            str += item.getCi()+item.getVi()+item.getDi();
+            str += item.getCi() + item.getVi() + item.getDi();
         }
         return str;
     }
@@ -135,20 +121,8 @@ public class TexteCoreen {
         String textTraduire = "";
         createHangeulChiffre();
         creerHangeulObject();
-
         modifierHangeuls();
         textTraduire = Resultat();
-
-        /*textTraduire = Arrays.toString(Hangeul.tableModification);
-        for(int i = 9; i < 10; i++) {
-            for(int j = 0; j < Hangeul.tableModification[i].length; j++) {
-                    textTraduire += "\n" + Hangeul.tableModification[i][j];
-            }
-
-        }*/
-
-        //textTraduire = Hangeul.tableModification[1][25];
-
         return textTraduire;
     }
 

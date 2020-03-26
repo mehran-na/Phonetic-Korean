@@ -8,11 +8,8 @@ public class Hangeul {
     private String unicodeCorrect = "";
 
     private static String ciProchainObject = "";
-    private static int objectNumber = -1;
-
 
     private static int[] placeIPA = new int[2];
-
 
     private static String[] jamosFinale =
             {"ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ",
@@ -122,24 +119,6 @@ public class Hangeul {
         return di;
     }
 
-    //asli
-    /*public void trouverIPA(int di, int ci) {
-        String jamos_ci = ConsonneInitiale.trouverJamos(ci);
-        String jamos_di = ConsonneFinale.trouverJamos(di);
-
-        for(int i = 0; i < jamosFinaleUnicode.length; i++) {
-            if (jamosFinale[i].equals(jamos_di)) {
-                placeIPA[1] = i;
-            }
-        }
-
-        for(int i = 0; i < jamosInitialeUnicode.length; i++) {
-            if (jamosInitiale[i].equals(jamos_ci)) {
-                placeIPA[0] = i;
-            }
-        }
-    }*/
-
     public static void trouverIPA(int di, int ci) {
         String jamos_ci = ConsonneInitiale.trouverJamos(ci);
         String jamos_di = ConsonneFinale.trouverJamos(di);
@@ -174,20 +153,8 @@ public class Hangeul {
         }
     }
 
-    public static void setObjectNumber() {
-        Hangeul.objectNumber++;
-    }
-
     public void setCi(String ci) {
         this.ci = ci;
-    }
-
-    public void setVi(String vi) {
-        this.vi = vi;
-    }
-
-    public void setDi(String di) {
-        this.di = di;
     }
 
     public static String getCiProchainObject() {

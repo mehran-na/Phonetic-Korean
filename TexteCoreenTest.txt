@@ -1,9 +1,9 @@
-//note : folder : test/Test/TexteCoreenTest.java
-package Test;
+//note : folder : test/Coreen/TexteCoreenTest.java
+package Coreen;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import Coreen.TexteCoreen;
 
 class TexteCoreenTest {
     private static final int DEBUT_COREEN = 44032;
@@ -14,12 +14,12 @@ class TexteCoreenTest {
     private static final int NO_PREMIERE_VOYELLE = 1;
     private static final int NO_DERNIERE_VOYELLE = 21;
     private static final int NB_VOYELLE =
-            NO_DERNIERE_VOYELLE - NO_PREMIERE_VOYELLE + 1;
+        NO_DERNIERE_VOYELLE - NO_PREMIERE_VOYELLE + 1;
 
     private static final int NO_PREMIER_CF = 0;
     private static final int NO_DERNIER_CF = 27;
     private static final int NB_CONSONNE_FINAL =
-            NO_DERNIER_CF - NO_PREMIER_CF + 1;
+        NO_DERNIER_CF - NO_PREMIER_CF + 1;
 
     public static String construireUnicode( int c, int v, int d ) {
         return Character.toString(
@@ -28,36 +28,59 @@ class TexteCoreenTest {
     }
 
     private static final String H_1_1_0 = construireUnicode( 1, 1, 0 );
-    private static final String H_2_1_0 = construireUnicode( 2, 1, 0 );
-    private static final String H_12_1_0 = construireUnicode( 12, 1, 0 );
-    private static final String H_18_1_0 = construireUnicode( 18, 1, 0 );
-    private static final String H_19_1_0 = construireUnicode( 19, 1, 0 );
+    private static final String H_1_1_1 = construireUnicode( 1, 1, 1 );
+    private static final String H_1_1_4 = construireUnicode( 1, 1, 4 );
+    private static final String H_1_1_10 = construireUnicode( 1, 1, 10 );
+    private static final String H_1_1_13 = construireUnicode( 1, 1, 13 );
+    private static final String H_1_1_17 = construireUnicode( 1, 1, 17 );
+    private static final String H_1_1_18 = construireUnicode( 1, 1, 18 );
+    private static final String H_1_1_20 = construireUnicode( 1, 1, 20 );
+    private static final String H_1_1_21 = construireUnicode( 1, 1, 21 );
+    private static final String H_1_1_26 = construireUnicode( 1, 1, 26 );
+    private static final String H_1_1_27 = construireUnicode( 1, 1, 27 );
     private static final String H_1_2_0 = construireUnicode( 1, 2, 0 );
     private static final String H_1_10_0 = construireUnicode( 1, 10, 0 );
     private static final String H_1_20_0 = construireUnicode( 1, 20, 0 );
     private static final String H_1_21_0 = construireUnicode( 1, 21, 0 );
-    private static final String H_1_1_1 = construireUnicode( 1, 1, 1 );
-    private static final String H_1_1_13 = construireUnicode( 1, 1, 13 );
-    private static final String H_1_1_26 = construireUnicode( 1, 1, 26 );
-    private static final String H_1_1_27 = construireUnicode( 1, 1, 27 );
-
+    private static final String H_2_1_0 = construireUnicode( 2, 1, 0 );
     private static final String H_2_2_2 = construireUnicode( 2, 2, 2 );
+    private static final String H_3_1_0 = construireUnicode( 3, 1, 0 );
     private static final String H_3_3_3 = construireUnicode( 3, 3, 3 );
+    private static final String H_3_14_8 = construireUnicode( 3, 14, 8 );
+    private static final String H_4_1_0 = construireUnicode( 4, 1, 0 );
     private static final String H_4_4_4 = construireUnicode( 4, 4, 4 );
+    private static final String H_4_5_0 = construireUnicode( 4, 5, 0 );
     private static final String H_5_5_5 = construireUnicode( 5, 5, 5 );
+    private static final String H_5_21_0 = construireUnicode( 5, 21, 0 );
+    private static final String H_6_1_0 = construireUnicode( 6, 1, 0 );
     private static final String H_6_6_6 = construireUnicode( 6, 6, 6 );
     private static final String H_7_7_7 = construireUnicode( 7, 7, 7 );
+    private static final String H_7_9_0 = construireUnicode( 7, 9, 0 );
+    private static final String H_8_1_0 = construireUnicode( 8, 1, 0 );
     private static final String H_8_8_8 = construireUnicode( 8, 8, 8 );
+    private static final String H_8_10_0 = construireUnicode( 8, 10, 0 );
     private static final String H_9_9_9 = construireUnicode( 9, 9, 9 );
+    private static final String H_9_17_0 = construireUnicode( 9, 17, 0 );
     private static final String H_10_10_10 = construireUnicode( 10, 10, 10 );
+    private static final String H_10_19_0 = construireUnicode( 10, 19, 0 );
     private static final String H_11_11_11 = construireUnicode( 11, 11, 11 );
+    private static final String H_11_20_0 = construireUnicode( 11, 20, 0 );
+    private static final String H_12_1_0 = construireUnicode( 12, 1, 0 );
+    private static final String H_12_2_21 = construireUnicode( 12, 2, 21 );
     private static final String H_12_12_12 = construireUnicode( 12, 12, 12 );
+    private static final String H_13_1_0 = construireUnicode( 13, 1, 0 );
     private static final String H_13_13_13 = construireUnicode( 13, 13, 13 );
     private static final String H_14_14_14 = construireUnicode( 14, 14, 14 );
+    private static final String H_15_1_0 = construireUnicode( 15, 1, 0 );
     private static final String H_15_15_15 = construireUnicode( 15, 15, 15 );
+    private static final String H_16_6_1 = construireUnicode( 16, 6, 1 );
     private static final String H_16_16_16 = construireUnicode( 16, 16, 16 );
+    private static final String H_17_3_7 = construireUnicode( 17, 3, 7 );
     private static final String H_17_17_17 = construireUnicode( 17, 17, 17 );
+    private static final String H_18_1_0 = construireUnicode( 18, 1, 0 );
+    private static final String H_18_12_18 = construireUnicode( 18, 12, 18 );
     private static final String H_18_18_18 = construireUnicode( 18, 18, 18 );
+    private static final String H_19_1_0 = construireUnicode( 19, 1, 0 );
     private static final String H_19_19_19 = construireUnicode( 19, 19, 19 );
     private static final String H_19_20_20 = construireUnicode( 19, 20, 20 );
     private static final String H_19_21_21 = construireUnicode( 19, 21, 21 );
@@ -354,5 +377,126 @@ class TexteCoreenTest {
     void traduireJamo28() {
         TexteCoreen t = new TexteCoreen( H_19_21_27 );
         assertEquals( "\u0068\u0069\u0074\u031a", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo30() {
+        TexteCoreen t = new TexteCoreen( H_19_1_0 );
+        assertEquals( "\u0068\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo31() {
+        TexteCoreen t = new TexteCoreen( H_1_1_0 + H_2_1_0 + H_16_6_1 );
+        assertEquals( "\u006b\u0061\u006b\u0324\u0061\u006b\u02b0\u0065\u006b\u031a", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo32() {
+        TexteCoreen t = new TexteCoreen( H_7_9_0 + H_3_14_8 );
+        assertEquals( "\u006d\u006f\u006e\u0075\u006c", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo33() {
+        TexteCoreen t = new TexteCoreen( H_8_10_0 + H_9_17_0 + H_18_12_18 );
+        assertEquals( "\u0070\u0077\u0061\u0070\u0324\u0079\u0070\u02b0\u00f8\u0070\u031a", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo34() {
+        TexteCoreen t = new TexteCoreen( H_10_19_0 + H_11_20_0 );
+        assertEquals( "\u0073\u026f\u0073\u0324\u0270\u0069", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo35() {
+        TexteCoreen t = new TexteCoreen( H_4_5_0 + H_5_21_0 + H_17_3_7 );
+        assertEquals( "\u0074\u028c\u0074\u0324\u0069\u0074\u02b0\u006a\u0061\u0074\u031a", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo36() {
+        TexteCoreen t = new TexteCoreen( H_12_2_21 );
+        assertEquals( "\u025b\u014b", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo37() {
+        TexteCoreen t = new TexteCoreen( H_13_1_0 + H_15_1_0 );
+        assertEquals( "\u0074\u0255\u0061\u0074\u0255\u02b0\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo38() {
+        TexteCoreen t = new TexteCoreen( H_6_1_0 );
+        assertEquals( "\u027e\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo40() {
+        TexteCoreen t = new TexteCoreen( H_1_1_1 + H_3_1_0 );
+        assertEquals( "\u006b\u0061\u014b\u0061", t.traduire() );
+    }
+
+
+    @Test
+    void traduireJamo41() {
+        TexteCoreen t = new TexteCoreen( H_1_1_4 + H_6_1_0 );
+        assertEquals( "\u006b\u0061\u006c\u006c\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo42() {
+        TexteCoreen t = new TexteCoreen( H_1_1_21 + H_6_1_0 );
+        assertEquals( "\u006b\u0061\u006e\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo43() {
+        TexteCoreen t = new TexteCoreen( H_1_1_17 + H_4_1_0 );
+        assertEquals( "\u006b\u0061\u0070\u031a\u0074\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo44() {
+        TexteCoreen t = new TexteCoreen( H_1_1_21 + H_1_1_0 );
+        assertEquals( "\u006b\u0061\u014b\u006b\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo45() {
+        TexteCoreen t = new TexteCoreen( H_1_1_1 + H_1_1_0 );
+        assertEquals( "\u006b\u0061\u006b\u031a\u006b\u031a\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo46() {
+        TexteCoreen t = new TexteCoreen( H_1_1_20 + H_3_1_0 );
+        assertEquals( "\u006b\u0061\u006e\u0074\u031a\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo47() {
+        TexteCoreen t = new TexteCoreen( H_1_1_18 + H_12_1_0 );
+        assertEquals( "\u006b\u0061\u0070\u031a\u0073\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo48() {
+        TexteCoreen t = new TexteCoreen( H_1_1_17 + H_8_1_0 );
+        assertEquals( "\u006b\u0061\u0070\u031a\u0070\u031a\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo49() {
+        TexteCoreen t = new TexteCoreen( H_1_1_10 + H_4_1_0 );
+        assertEquals( "\u006b\u0061\u006d\u0074\u0061", t.traduire() );
+    }
+
+    @Test
+    void traduireJamo50() {
+        TexteCoreen t = new TexteCoreen( H_1_1_10 + H_4_1_0 + H_1_1_18 + H_12_1_0 + H_1_1_10 + H_4_1_0 );
+        assertEquals( "\u006b\u0061\u006d\u0074\u0061\u006b\u0061\u0070\u031a\u0073\u0061\u006b\u0061\u006d\u0074\u0061", t.traduire() );
     }
 }

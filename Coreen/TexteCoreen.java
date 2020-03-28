@@ -80,30 +80,38 @@ public class TexteCoreen {
     private void modifierHangeuls() {
         int di = 0;
         int ci = 0;
-        for(int i = 0; i < hangeulObjects.size() - 1; i++) {
-
-            di = hangeulChiffres.get(i).getDi();
-            ci = hangeulChiffres.get(i + 1).getCi();
+        for(int i = 0; i < hangeulObjects.size(); i++) {
 
             if (i == 0) {
-                if (di != 0) {
-                    aiderFunction(di, ci, i);
-                }else{
-                    Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
-                }
+                Hangeul.setCiProchainObject(hangeulObjects.get(i).getCi());
+            }
+
+            if (i == hangeulObjects.size() - 1) {
+                hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
             }else{
-                if (di != 0) {
-                    hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
-                    aiderFunction(di, ci, i);
+                di = hangeulChiffres.get(i).getDi();
+                ci = hangeulChiffres.get(i + 1).getCi();
+
+                if (i == 0) {
+                    if (di != 0) {
+                        aiderFunction(di, ci, i);
+                    }else{
+                        Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+                    }
                 }else{
-                    hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
-                    Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+                    if (di != 0) {
+                        hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                        aiderFunction(di, ci, i);
+                    }else{
+                        hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                        Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+                    }
                 }
             }
         }
     }
 
-    private void aiderFunction(int di, int ci, int i){
+    private void aiderFunction(int di, int ci, int i) {
         Hangeul.trouverIPA(di, ci);
         hangeulObjects.get(i).trouverUnicodeCorrect();
         hangeulObjects.get(i).assigneUnicodeCorrect();
@@ -119,6 +127,7 @@ public class TexteCoreen {
 
     public String traduire() {
         // 쏙누붤댅딡
+        //각나
         String textTraduire = "";
         createHangeulChiffre();
         creerHangeulObject();

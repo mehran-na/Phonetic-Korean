@@ -1,5 +1,8 @@
 package Coreen;
 
+/*
+ * classe Hangeul
+ * */
 public class Hangeul {
     private String ci;
     private String vi;
@@ -107,6 +110,7 @@ public class Hangeul {
         this.di = di;
     }
 
+    //getters :
     public String getCi() {
         return ci;
     }
@@ -119,6 +123,29 @@ public class Hangeul {
         return di;
     }
 
+    public static String getCiProchainObject() {
+        return ciProchainObject;
+    }
+
+    //setters:
+    public void setCi(String ci) {
+        this.ci = ci;
+    }
+
+    public static void setCiProchainObject(String ciProchainObject) {
+        Hangeul.ciProchainObject = ciProchainObject;
+    }
+
+    /*
+     * cette function prend les numèro de di et prochain ci dans array list de hangeulChiffres
+     * et trouver jamos a partir de classe ConsonneInitiale et ConsonneFinal puis il trouver la index
+     * de consonne dans array2D et mettre les index dans une tableau pour utiliser dans autre function
+     *
+     * @param di : numèro consonne finale de object hangeulChiffre
+     * @param ci : numèro consonne initiale de prochain objet hangeulChiffre
+     *
+     * @return void
+     * */
     public static void trouverIPA(int di, int ci) {
         String jamos_ci = ConsonneInitiale.trouverJamos(ci);
         String jamos_di = ConsonneFinale.trouverJamos(di);
@@ -136,10 +163,20 @@ public class Hangeul {
         }
     }
 
+    /*
+     * prendre unicode correct dans array2D avec l'index que dans function trouverIPA a dèja trouver
+     *
+     * @return void
+     * */
     public void trouverUnicodeCorrect() {
         this.unicodeCorrect = tableModification[placeIPA[0]][placeIPA[1]];
     }
 
+    /*
+     * assigner unicode correct dans object hangeul
+     *
+     * @return void
+     * */
     public void assigneUnicodeCorrect() {
         if (unicodeCorrect.length() != 0) {
             if (unicodeCorrect.contains("\u002b")) {
@@ -151,18 +188,6 @@ public class Hangeul {
                 ciProchainObject = "";
             }
         }
-    }
-
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
-
-    public static String getCiProchainObject() {
-        return ciProchainObject;
-    }
-
-    public static void setCiProchainObject(String ciProchainObject) {
-        Hangeul.ciProchainObject = ciProchainObject;
     }
 
     @Override

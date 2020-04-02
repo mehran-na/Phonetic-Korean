@@ -2,6 +2,15 @@ package Coreen;
 
 import java.util.*;
 
+/**
+ * Classe TexteCoreen
+ *
+ * @author : Mehran Nazemi
+ * @version : mars 2020
+ * @Professeur : M.Bruno Malenfant
+ * @email : nazemi.mehran@courrier.uqam.ca
+ * @code permanent  : NAZM30088507
+ */
 public class TexteCoreen {
     String texte;
 
@@ -13,20 +22,36 @@ public class TexteCoreen {
         this.texte = texte;
     }
 
-
+    /**
+     * Calculer ci pour chaque caractère de text coreen
+     * @param position : index de chaque caractère dans text coreen
+     *
+     * @return int (ci)
+     */
     public int noConsonneInitiale(int position) {
-        //char monChar = texte.charAt(position); //쏙
         int codePoint = texte.codePointAt(position);
         int uiTemp = codePoint - 44032;
         return 1 + (uiTemp / 588);
     }
 
+    /**
+     * Calculer vi pour chaque caractère de text coreen
+     * @param position : index de chaque caractère dans text coreen
+     *
+     * @return int (vi)
+     */
     public int noVoyelle(int position) {
         int codePoint = texte.codePointAt(position);
         int uiTemp = codePoint - 44032;
         return 1 + ((uiTemp - (uiTemp % 28)) % 588) / 28;
     }
 
+    /**
+     * Calculer di pour chaque caractère de text coreen
+     * @param position : index de chaque caractère dans text coreen
+     *
+     * @return int (di)
+     */
     public int noConsonneFinale(int position) {
         int codePoint = texte.codePointAt(position);
         int uiTemp = codePoint - 44032;
@@ -35,7 +60,8 @@ public class TexteCoreen {
 
 
     /**
-     * Calculer ci, vi, di et créer object Hangeul de chaque code point.
+     * Calculer ci, vi, di et créer object de la classe HangeulChiffre et ajouter dans array list
+     * il deviant par exemple comme ça : [(11,9,1), (3,14,0), ...]
      *
      * @return void
      */
@@ -53,7 +79,8 @@ public class TexteCoreen {
     }
 
     /**
-     * Créer object IPA et ajouter dans arrayList ipaObjects.
+     * Créer object de la classe Hangeul et ajouter dans arrayList hangeulObjects.
+     * il deviant par exemple comme ça : [(s̤,o,k ̚), (n,u,-), ...]
      *
      * @return void
      */
@@ -77,11 +104,16 @@ public class TexteCoreen {
         }
     }
 
+    /**
+     * modifier les objet hanguel dans array list (remplacement pour 2 consonnes qui se suivent)
+     * il deviant par exemple comme ça : [(s̤,o,ŋ), (-,u,-), ...]
+     *
+     * @return void
+     */
     private void modifierHangeuls() {
         int di = 0;
         int ci = 0;
         for(int i = 0; i < hangeulObjects.size(); i++) {
-
             if (i == 0) {
                 Hangeul.setCiProchainObject(hangeulObjects.get(i).getCi());
             }
@@ -91,32 +123,47 @@ public class TexteCoreen {
             }else{
                 di = hangeulChiffres.get(i).getDi();
                 ci = hangeulChiffres.get(i + 1).getCi();
-
-                if (i == 0) {
-                    if (di != 0) {
-                        aiderFunction(di, ci, i);
-                    }else{
-                        Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
-                    }
-                }else{
-                    if (di != 0) {
-                        hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
-                        aiderFunction(di, ci, i);
-                    }else{
-                        hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
-                        Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
-                    }
-                }
+                aiderFunction(di, ci, i);
             }
         }
     }
 
+    /**
+     * cette function va aider la function modifierHangeuls parce que je veux pas avoire beaucoup
+     * code dans function modifierHanguel alors j'ai mis une partie de code ici
+     * @param di : dernière consonne du objet hangeul
+     * @param ci : première  consonne du objet hangeul suivant
+     * @param i : index d'objet dans array list
+     *
+     * @return void
+     */
     private void aiderFunction(int di, int ci, int i) {
-        Hangeul.trouverIPA(di, ci);
-        hangeulObjects.get(i).trouverUnicodeCorrect();
-        hangeulObjects.get(i).assigneUnicodeCorrect();
+        if (i == 0) {
+            if (di != 0) {
+                Hangeul.trouverIPA(di, ci);
+                hangeulObjects.get(i).trouverUnicodeCorrect();
+                hangeulObjects.get(i).assigneUnicodeCorrect();
+            }else{
+                Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+            }
+        }else{
+            if (di != 0) {
+                hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                Hangeul.trouverIPA(di, ci);
+                hangeulObjects.get(i).trouverUnicodeCorrect();
+                hangeulObjects.get(i).assigneUnicodeCorrect();
+            }else{
+                hangeulObjects.get(i).setCi(Hangeul.getCiProchainObject());
+                Hangeul.setCiProchainObject(hangeulObjects.get(i + 1).getCi());
+            }
+        }
     }
 
+    /**
+     * prendre array list des hangeuls et returner les element comme string
+     *
+     * @return String
+     */
     private String Resultat() {
         String str = "";
         for(Hangeul item : hangeulObjects) {
@@ -126,7 +173,7 @@ public class TexteCoreen {
     }
 
     public String traduire() {
-        // 쏙누붤댅딡
+        //쏙누붤댅딡
         //각나
         String textTraduire = "";
         createHangeulChiffre();

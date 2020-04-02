@@ -1,5 +1,9 @@
 package Coreen;
-
+/*
+* Classe enum ConsonneFinale
+* table consonne final contient la prononciation international pour chaque jamo
+*
+* */
 public enum ConsonneFinale {
     D_0("", "", 0),
     D_1("\u3131", "\u006B\u031A", 1),
@@ -34,12 +38,14 @@ public enum ConsonneFinale {
     private String ipaUniCode;
     private int num;
 
+    //constructor
     ConsonneFinale(String jamosUnicode, String ipaUniCode, int num) {
         this.jamosUnicode = jamosUnicode;
         this.ipaUniCode = ipaUniCode;
         this.num = num;
     }
 
+    //geters :
     public String getJamosUnicode() {
         return jamosUnicode;
     }
@@ -52,6 +58,12 @@ public enum ConsonneFinale {
         return num;
     }
 
+    /*
+    * trouver jamos correspondance, il prendre un integer et il trouver jamos
+    *
+    * @param num : un chiffre integer
+    * @return jamos correspondance
+    * */
     public static String trouverJamos(int num) {
         for(ConsonneFinale item : ConsonneFinale.values()) {
             if (item.getNum() == num) {

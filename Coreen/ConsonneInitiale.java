@@ -1,5 +1,10 @@
 package Coreen;
 
+/*
+ * Classe enum ConsonneInitiale
+ * table consonne initiale contient la prononciation international pour chaque jamo
+ *
+ * */
 public enum ConsonneInitiale {
     C_1("\u3131", "\u006B", 1),
     C_2("\u3132", "\u006B\u0324", 2),
@@ -25,12 +30,14 @@ public enum ConsonneInitiale {
     private String ipaUniCode;
     private int num;
 
+    //constructor :
     ConsonneInitiale(String jamosUnicode, String ipaUniCode, int num) {
         this.jamosUnicode = jamosUnicode;
         this.ipaUniCode = ipaUniCode;
         this.num = num;
     }
 
+    //getters :
     public String getJamosUnicode() {
         return jamosUnicode;
     }
@@ -43,6 +50,12 @@ public enum ConsonneInitiale {
         return num;
     }
 
+    /*
+     * trouver jamos correspondance, il prendre un integer et il trouver jamos
+     *
+     * @param num : un chiffre integer
+     * @return jamos correspondance
+     * */
     public static String trouverJamos(int num) {
         for(ConsonneInitiale item : ConsonneInitiale.values()) {
             if (item.getNum() == num) {

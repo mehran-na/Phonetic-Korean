@@ -1,5 +1,10 @@
 package Coreen;
 
+/*
+* Classe enum Voyelle
+*
+* table voyelle contient la prononciation international pour chaque jamo
+* */
 public enum Voyelle {
     V_1("\u314F","\u0061"),
     V_2("\u3150","\u025B"),
@@ -26,11 +31,13 @@ public enum Voyelle {
     private String jamosUnicode;
     private String ipaUniCode;
 
+    //constructor :
     Voyelle(String jamosUnicode, String ipaUniCode) {
         this.jamosUnicode = jamosUnicode;
         this.ipaUniCode = ipaUniCode;
     }
 
+    //getters :
     public String getJamosUnicode() {
         return jamosUnicode;
     }

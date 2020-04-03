@@ -59,7 +59,9 @@ public enum ConsonneFinale {
     }
 
     /*
-    * trouver jamos correspondance, il prendre un integer et il trouver jamos
+    * trouver jamos correspondance
+    *
+    * il prendre un integer et il trouver jamos
     *
     * @param num : un chiffre integer
     * @return jamos correspondance

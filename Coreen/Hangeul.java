@@ -1,7 +1,8 @@
 package Coreen;
 
 /*
- * classe Hangeul
+ * Classe Hangeul
+ * pour créer object hangeul par exemple comme (s̤,o,k ̚)
  * */
 public class Hangeul {
     private String ci;
@@ -137,9 +138,8 @@ public class Hangeul {
     }
 
     /*
-     * cette function prend les numèro de di et prochain ci dans array list de hangeulChiffres
-     * et trouver jamos a partir de classe ConsonneInitiale et ConsonneFinal puis il trouver la index
-     * de consonne dans array2D et mettre les index dans une tableau pour utiliser dans autre function
+     * Prendre di et prochain ci et trouver jamos correspondance
+     *
      *
      * @param di : numèro consonne finale de object hangeulChiffre
      * @param ci : numèro consonne initiale de prochain objet hangeulChiffre
@@ -147,24 +147,37 @@ public class Hangeul {
      * @return void
      * */
     public static void trouverIPA(int di, int ci) {
-        String jamos_ci = ConsonneInitiale.trouverJamos(ci);
-        String jamos_di = ConsonneFinale.trouverJamos(di);
+        String jamosCi = ConsonneInitiale.trouverJamos(ci);
+        String jamosDi = ConsonneFinale.trouverJamos(di);
 
+        trouverIndexIPA(jamosCi, jamosDi);
+    }
+
+    /*
+     * Trouver Index de IPA corrèct dans tableau2D
+     *
+     *
+     * @param jamosCi :jamos initiale de prochain objet hangeul
+     * @param jamosDi : jamos finale  de objet hangeul
+     *
+     * @return void
+     * */
+    private static void trouverIndexIPA(String jamosCi, String jamosDi) {
         for(int i = 0; i < jamosFinaleUnicode.length; i++) {
-            if (jamosFinale[i].equals(jamos_di)) {
+            if (jamosFinale[i].equals(jamosDi)) {
                 placeIPA[1] = i;
             }
         }
 
         for(int i = 0; i < jamosInitialeUnicode.length; i++) {
-            if (jamosInitiale[i].equals(jamos_ci)) {
+            if (jamosInitiale[i].equals(jamosCi)) {
                 placeIPA[0] = i;
             }
         }
     }
 
     /*
-     * prendre unicode correct dans array2D avec l'index que dans function trouverIPA a dèja trouver
+     * Initializer field avec unicode correct dans array2D
      *
      * @return void
      * */
@@ -173,7 +186,7 @@ public class Hangeul {
     }
 
     /*
-     * assigner unicode correct dans object hangeul
+     * Modifier object hangeul avec unicode correct
      *
      * @return void
      * */

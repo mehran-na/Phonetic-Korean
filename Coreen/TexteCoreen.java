@@ -12,10 +12,10 @@ import java.util.*;
  * @code permanent  : NAZM30088507
  */
 public class TexteCoreen {
-    String texte;
+    private String texte;
 
-    ArrayList<HangeulChiffre> hangeulChiffres = new ArrayList<>();
-    ArrayList<Hangeul> hangeulObjects = new ArrayList<>();
+    private ArrayList<HangeulChiffre> hangeulChiffres = new ArrayList<>();
+    private ArrayList<Hangeul> hangeulObjects = new ArrayList<>();
 
     //Constructor
     public TexteCoreen(String texte) {
@@ -24,6 +24,7 @@ public class TexteCoreen {
 
     /**
      * Calculer ci pour chaque caractère de text coreen
+     *
      * @param position : index de chaque caractère dans text coreen
      *
      * @return int (ci)
@@ -36,6 +37,7 @@ public class TexteCoreen {
 
     /**
      * Calculer vi pour chaque caractère de text coreen
+     *
      * @param position : index de chaque caractère dans text coreen
      *
      * @return int (vi)
@@ -48,6 +50,7 @@ public class TexteCoreen {
 
     /**
      * Calculer di pour chaque caractère de text coreen
+     *
      * @param position : index de chaque caractère dans text coreen
      *
      * @return int (di)
@@ -60,7 +63,8 @@ public class TexteCoreen {
 
 
     /**
-     * Calculer ci, vi, di et créer object de la classe HangeulChiffre et ajouter dans array list
+     * Créer object de la classe HangeulChiffre et ajouter dans array list
+     *
      * il deviant par exemple comme ça : [(11,9,1), (3,14,0), ...]
      *
      * @return void
@@ -80,6 +84,7 @@ public class TexteCoreen {
 
     /**
      * Créer object de la classe Hangeul et ajouter dans arrayList hangeulObjects.
+     *
      * il deviant par exemple comme ça : [(s̤,o,k ̚), (n,u,-), ...]
      *
      * @return void
@@ -105,8 +110,10 @@ public class TexteCoreen {
     }
 
     /**
-     * modifier les objet hanguel dans array list (remplacement pour 2 consonnes qui se suivent)
-     * il deviant par exemple comme ça : [(s̤,o,ŋ), (-,u,-), ...]
+     * modifier les objet hanguel dans array list
+     *
+     * remplacement pour 2 consonnes qui se suivent, il deviant par exemple comme ça :
+     * [(s̤,o,ŋ), (-,u,-), ...]
      *
      * @return void
      */
@@ -129,8 +136,11 @@ public class TexteCoreen {
     }
 
     /**
-     * cette function va aider la function modifierHangeuls parce que je veux pas avoire beaucoup
-     * code dans function modifierHanguel alors j'ai mis une partie de code ici
+     * cette function va aider la function modifierHangeuls
+     *
+     * parce que je veux pas avoire beaucoup code dans function modifierHanguel
+     * alors j'ai mis une partie de code ici
+     *
      * @param di : dernière consonne du objet hangeul
      * @param ci : première  consonne du objet hangeul suivant
      * @param i : index d'objet dans array list
@@ -160,7 +170,7 @@ public class TexteCoreen {
     }
 
     /**
-     * prendre array list des hangeuls et returner les element comme string
+     * Prendre array list des hangeuls et returner les element comme string
      *
      * @return String
      */

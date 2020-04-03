@@ -2,6 +2,7 @@ package Coreen;
 
 /*
  * Classe enum ConsonneInitiale
+ *
  * table consonne initiale contient la prononciation international pour chaque jamo
  *
  * */
@@ -51,7 +52,9 @@ public enum ConsonneInitiale {
     }
 
     /*
-     * trouver jamos correspondance, il prendre un integer et il trouver jamos
+     * Trouver jamos correspondance
+     *
+     * elle prendre un integer et il trouver jamos
      *
      * @param num : un chiffre integer
      * @return jamos correspondance
